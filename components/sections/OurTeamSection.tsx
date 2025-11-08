@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 // Inline chevron icons (small, no dependency)
 function ChevronLeftIcon(props: { className?: string }) {
@@ -83,8 +83,32 @@ const teamMembers: TeamMember[] = [
 
 export default function OurTeamSection() {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const itemsPerView = 3;
+
+  // Responsive items per view
+  const getItemsPerView = () => {
+    if (typeof window !== "undefined") {
+      if (window.innerWidth >= 1280) return 4; // xl
+      if (window.innerWidth >= 1024) return 3; // lg
+      if (window.innerWidth >= 768) return 2; // md
+      return 1; // sm and below
+    }
+    return 3; // default
+  };
+
+  const [itemsPerView, setItemsPerView] = useState(getItemsPerView());
   const maxIndex = Math.max(0, teamMembers.length - itemsPerView);
+
+  // Update items per view on resize
+  useEffect(() => {
+    const handleResize = () => {
+      setItemsPerView(getItemsPerView());
+    };
+
+    if (typeof window !== "undefined") {
+      window.addEventListener("resize", handleResize);
+      return () => window.removeEventListener("resize", handleResize);
+    }
+  }, []);
 
   const nextSlide = () => {
     setCurrentIndex((prev) => (prev >= maxIndex ? 0 : prev + 1));
@@ -128,7 +152,7 @@ export default function OurTeamSection() {
           {/* Carousel Wrapper */}
           <div className="overflow-hidden">
             <div
-              className="flex gap-8 transition-transform duration-500 ease-out"
+              className="flex gap-6 transition-transform duration-500 ease-out"
               style={{
                 transform: `translateX(-${
                   currentIndex * (100 / itemsPerView)
@@ -138,36 +162,41 @@ export default function OurTeamSection() {
               {teamMembers.map((member) => (
                 <div
                   key={member.id}
-                  className="shrink-0 w-full md:w-1/3 flex flex-col items-center group"
+                  className="shrink-0 basis-full sm:basis-1/2 md:basis-1/3 lg:basis-1/4 xl:basis-1/4 flex flex-col items-center group"
                 >
-                  {/* Image Container with Glow Effect */}
-                  <div className="relative mb-8">
-                    {/* Outer glow ring */}
-                    <div className="absolute inset-0 rounded-full bg-linear-to-br from-purple-600 via-pink-500 to-blue-500 blur-xl opacity-60 group-hover:opacity-100 transition-opacity duration-500" />
+                  {/* Card Container with Hover Effect */}
+                  <div className="bg-gray-900/50 backdrop-blur-sm rounded-2xl p-6 border border-gray-700/50 hover:border-purple-500/50 transition-all duration-300 hover:bg-gray-800/50 hover:shadow-2xl hover:shadow-purple-500/20 w-full max-w-sm">
+                    {/* Image Container with Glow Effect */}
+                    <div className="relative mb-6 flex justify-center">
+                      {/* Outer glow ring */}
+                      <div className="absolute inset-0 rounded-full bg-linear-to-br from-purple-600 via-pink-500 to-blue-500 blur-xl opacity-60 group-hover:opacity-100 transition-opacity duration-500 scale-110" />
 
-                    {/* Border ring */}
-                    <div className="relative rounded-full p-1 bg-linear-to-br from-purple-600 via-pink-500 to-blue-500">
-                      {/* Image */}
-                      <div className="relative w-64 h-64 rounded-full overflow-hidden bg-black">
-                        <Image
-                          src={member.image}
-                          alt={member.name}
-                          fill
-                          className="object-cover transition-transform duration-500 group-hover:scale-110"
-                        />
-                        {/* Overlay gradient */}
-                        <div className="absolute inset-0 bg-linear-to-br from-purple-600/40 via-transparent to-blue-600/40 mix-blend-overlay" />
+                      {/* Border ring */}
+                      <div className="relative rounded-full p-1 bg-linear-to-br from-purple-600 via-pink-500 to-blue-500">
+                        {/* Image */}
+                        <div className="relative w-48 h-48 rounded-full overflow-hidden bg-black">
+                          <Image
+                            src={member.image}
+                            alt={member.name}
+                            fill
+                            className="object-cover transition-transform duration-500 group-hover:scale-110"
+                          />
+                          {/* Overlay gradient */}
+                          <div className="absolute inset-0 bg-linear-to-br from-purple-600/40 via-transparent to-blue-600/40 mix-blend-overlay" />
+                        </div>
                       </div>
                     </div>
-                  </div>
 
-                  {/* Member Info */}
-                  <h3 className="text-2xl font-semibold text-white mb-2 text-center">
-                    {member.name}
-                  </h3>
-                  <p className="text-lg text-gray-300 italic text-center">
-                    ({member.role})
-                  </p>
+                    {/* Member Info */}
+                    <div className="text-center">
+                      <h3 className="text-xl font-semibold text-white mb-2">
+                        {member.name}
+                      </h3>
+                      <p className="text-sm text-gray-300 italic">
+                        {member.role}
+                      </p>
+                    </div>
+                  </div>
                 </div>
               ))}
             </div>
