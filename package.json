@@ -22,6 +22,7 @@
     "qrcode.react": "^4.2.0",
     "react": "19.2.0",
     "react-dom": "19.2.0",
+    "react-qr-reader": "^2.2.1",
     "resend": "^6.4.2",
     "tailwind-merge": "^3.3.1",
     "xlsx": "^0.18.5"
@@ -31,6 +32,7 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@types/react-qr-reader": "^2.1.7",
     "eslint": "^9",
     "eslint-config-next": "16.0.1",
     "tailwindcss": "^4",
