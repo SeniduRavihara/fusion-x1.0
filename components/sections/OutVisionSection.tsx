@@ -1,7 +1,6 @@
 "use client";
 
 import { motion } from "framer-motion";
-import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { BackgroundBeams } from "../ui/background-beams";
 import "./OutVisionSection.css";
@@ -45,10 +44,6 @@ const OutVisionSection = () => {
     visible: {
       opacity: 1,
       y: 0,
-      transition: {
-        duration: 0.4,
-        ease: "easeOut",
-      },
     },
   };
 
@@ -80,10 +75,7 @@ const OutVisionSection = () => {
   };
 
   return (
-    <div
-      ref={sectionRef}
-      className="w-full  mt-20 overflow-hidden"
-    >
+    <div ref={sectionRef} className="w-full  mt-20 overflow-hidden">
       <div className="w-full min-h-[550px] xsm:min-h-[400px] md:min-h-[380px] flex flex-col items-start justify-center relative overflow-hidden">
         {/* Floating decorative circles */}
         <div
