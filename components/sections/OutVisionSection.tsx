@@ -59,7 +59,7 @@ const OutVisionSection = () => {
   return (
     <section
       id="vision"
-      className="w-full py-28 bg-black min-h-screen relative"
+      className="w-full py-20 bg-black min-h-screen relative"
     >
       {/* Background pattern - top right corner */}
       <div className="absolute top-8 right-8 z-0 opacity-10">
@@ -84,17 +84,6 @@ const OutVisionSection = () => {
       </div>
 
       <div className="max-w-7xl mx-auto px-6 relative z-10">
-        {/* Header */}
-        <div className="mb-16">
-          <h2 className="text-3xl md:text-5xl font-bold text-white mb-4">
-            Our Vision
-          </h2>
-          <p className="text-white/70 text-lg max-w-3xl">
-            Democratizing AI education and empowering the next generation of
-            innovators
-          </p>
-        </div>
-
         {/* Vision Content */}
         <div
           ref={sectionRef}

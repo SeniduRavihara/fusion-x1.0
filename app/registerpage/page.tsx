@@ -1,11 +1,11 @@
 "use client";
 
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
+import NetworkBackground from "@/components/ui/network-background";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import UserService from "../../firebase/services/UserService";
-import NetworkBackground from "@/components/ui/network-background";
 
 type FormState = {
   email: string;
@@ -109,7 +109,7 @@ export default function RegisterPage() {
   };
 
   return (
-    <main className="min-h-screen flex items-center justify-center bg-[#0A0F text-white py-12">
+    <main className="min-h-screen flex items-center justify-center text-white py-12">
       <div className="w-full max-w-2xl mx-auto p-8 bg-neutral-900/40 rounded-2xl border border-purple-800/30 shadow-lg">
         <h1 className="text-3xl font-extrabold">Register for FusionX 1.0</h1>
         <p className="mt-2 text-white/80">

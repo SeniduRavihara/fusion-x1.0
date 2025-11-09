@@ -129,16 +129,16 @@ export default function NetworkBackground(): JSX.Element {
             ctx.moveTo(point.x, point.y);
             ctx.lineTo(point2.x, point2.y);
             // Change this to modify the foreground line color
-            ctx.strokeStyle = `rgba(80, 100, 140, ${opacity * 0.3})`;
+            ctx.strokeStyle = `rgba(147, 51, 234, ${opacity * 0.8})`;
             ctx.stroke();
           }
         }
 
         // Draw node (very small) - Change this to modify the dot color
         ctx.beginPath();
-        ctx.arc(point.x, point.y, 1, 0, Math.PI * 2);
+        ctx.arc(point.x, point.y, 2, 0, Math.PI * 2);
         // Change this to modify the foreground dot color
-        ctx.fillStyle = "rgba(120, 140, 180, 0.6)";
+        ctx.fillStyle = "rgba(168, 85, 247, 0.9)";
         ctx.fill();
       }
 

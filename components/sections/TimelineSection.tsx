@@ -9,7 +9,7 @@ const TimelineSection = () => {
   return (
     <section
       id="timeline"
-      className="w-full py-28 bg-black min-h-screen relative"
+      className="w-full -mt-10 bg-black min-h-screen relative"
     >
       {/* Background pattern - top left corner */}
       <div className="absolute top-8 left-8 z-0 opacity-10">

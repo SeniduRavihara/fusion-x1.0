@@ -1,9 +1,16 @@
 "use client";
 
+import { gsap } from "gsap";
+import { ScrollSmoother } from "gsap/ScrollSmoother";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import logoImg from "../../assets/Final Logo FusionX.png";
+
+// Register ScrollSmoother plugin
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(ScrollSmoother);
+}
 
 const HeaderSection = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -11,7 +18,15 @@ const HeaderSection = () => {
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
     if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
+      // Check if ScrollSmoother is active
+      const smoother = ScrollSmoother.get();
+      if (smoother) {
+        // Use ScrollSmoother's scrollTo method
+        smoother.scrollTo(element, true, "top top");
+      } else {
+        // Fallback to native scrollIntoView
+        element.scrollIntoView({ behavior: "smooth" });
+      }
     }
     setIsMenuOpen(false); // Close mobile menu if open
   };
@@ -31,12 +46,12 @@ const HeaderSection = () => {
           >
             Register
           </Link>
-          <button
+          {/* <button
             onClick={() => scrollToSection("out-vision")}
             className="text-sm font-medium text-white hover:text-purple-400 transition-colors"
           >
             Our Vision
-          </button>
+          </button> */}
           <button
             onClick={() => scrollToSection("timeline")}
             className="text-sm font-medium text-white hover:text-purple-400 transition-colors"
