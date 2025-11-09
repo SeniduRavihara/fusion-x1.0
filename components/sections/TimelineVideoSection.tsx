@@ -56,7 +56,7 @@ const TimelineVideoSection = ({
       <div ref={videoContainerRef} className="relative">
         <ScrollVideo
           src="/videos/robo-video-smooth.mp4"
-          className="rounded-2xl overflow-hidden shadow-2xl shadow-purple-500/20 w-full"
+          className="rounded-2xl overflow-hidden w-full"
         />
       </div>
     </div>

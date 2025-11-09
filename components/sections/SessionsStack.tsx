@@ -64,7 +64,7 @@ const SessionsStack = ({ direction = "vertical" }) => {
       });
 
       items.forEach((item, index) => {
-        timeline.to(item, { scale: 0.85, opacity: 0.5 });
+        timeline.to(item, { scale: 0.85 });
 
         if (items[index + 1]) {
           timeline.to(
@@ -89,7 +89,7 @@ const SessionsStack = ({ direction = "vertical" }) => {
           <div
             key={index}
             role="listitem"
-            className={`item absolute top-40 w-full max-w-2xl bg-gradient-to-br ${item.color} rounded-2xl shadow-2xl p-8 border border-white/10`}
+            className={`item absolute top-40 w-full max-w-2xl h-80 bg-gradient-to-br ${item.color} rounded-2xl shadow-2xl p-8 border border-white/10`}
           >
             {/* Day Badge */}
             <div className="inline-block bg-white/20 backdrop-blur-sm rounded-full px-6 py-2 mb-6">

@@ -5,7 +5,7 @@ import TimelineVideoSection from "./TimelineVideoSection";
 
 const TimelineSection = () => {
   return (
-    <section id="timeline" className="w-full py-28 bg-transparent min-h-screen">
+    <section id="timeline" className="w-full py-28 bg-black min-h-screen">
       <div className="max-w-7xl mx-auto px-6">
         {/* Header */}
         <div className="mb-16">
