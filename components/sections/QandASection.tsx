@@ -2,9 +2,12 @@
 
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 
 gsap.registerPlugin(ScrollTrigger);
+
+import backgroundImg from "../../assets/background.png";
 
 type QA = {
   id: number;
@@ -171,8 +174,34 @@ export default function QandASection() {
   };
 
   return (
-    <section ref={sectionRef} id="qa" className="w-full py-20 bg-black">
-      <div className="max-w-4xl mx-auto px-6">
+    <section
+      ref={sectionRef}
+      id="qa"
+      className="w-full py-20 bg-black relative"
+    >
+      {/* Background pattern - top left corner */}
+      <div className="absolute top-8 left-8 z-0 opacity-10">
+        <Image
+          src={backgroundImg}
+          alt=""
+          width={180}
+          height={180}
+          className="w-28 h-28 md:w-40 md:h-40 object-contain"
+        />
+      </div>
+
+      {/* Background pattern - bottom right corner */}
+      <div className="absolute bottom-8 right-8 z-0 opacity-10">
+        <Image
+          src={backgroundImg}
+          alt=""
+          width={180}
+          height={180}
+          className="w-28 h-28 md:w-40 md:h-40 object-contain"
+        />
+      </div>
+
+      <div className="max-w-4xl mx-auto px-6 relative z-10">
         <div className="text-center mb-12">
           <h2
             ref={titleRef}

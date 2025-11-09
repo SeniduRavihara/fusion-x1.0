@@ -1,16 +1,20 @@
 import html2canvas from "html2canvas";
 import { Download, Loader2, Mail } from "lucide-react";
+import Image from "next/image";
 import { QRCodeCanvas } from "qrcode.react";
 import { useEffect, useState } from "react";
+import logo from "../assets/logo.png";
 
 export default function GenerateTicket({
   name = "Participant",
   email,
   faculty,
+  backgroundPosition = "90% 50%",
 }: {
   name: string;
   email: string;
   faculty: string;
+  backgroundPosition?: string;
 }) {
   const [imageData, setImageData] = useState<string | null>(null);
   const [isEmailSending, setIsEmailSending] = useState(false);
@@ -82,15 +86,18 @@ export default function GenerateTicket({
   return (
     <div className="flex flex-col items-center justify-center w-full">
       {/* Ticket Preview */}
-      <div className="relative bg-[#262930] p-4 rounded-xl shadow-lg border border-[#333842] mb-6 w-[330px] md:w-[430px] h-[570px] md:h-[750px]">
+      <div className="relative bg-[#262930] p-4 rounded-xl shadow-lg border border-[#333842] mb-6 w-[330px] md:w-[430px] h-[510px] md:h-[690px]">
         <div className="inline-block">
           <div
             className="relative rounded-lg scale-75 md:scale-100 origin-top-left"
             id="ticket"
             style={{
               width: "400px",
-              height: "710px",
-              backgroundColor: "#581c87",
+              height: "650px",
+              backgroundImage: `url(/ticket-background.png)`,
+              backgroundSize: "cover",
+              backgroundPosition: backgroundPosition,
+              backgroundColor: "#581c87", // fallback color
               padding: "32px",
               display: "flex",
               flexDirection: "column",
@@ -100,59 +107,79 @@ export default function GenerateTicket({
               fontFamily: "system-ui, -apple-system, sans-serif",
             }}
           >
-            {/* Header */}
-            <div style={{ textAlign: "center", marginBottom: "32px" }}>
-              <h1
+            {/* Dark overlay */}
+            <div
+              className="absolute inset-0 rounded-lg"
+              style={{
+                backgroundColor: "rgba(0, 0, 0, 0.8)",
+              }}
+            />
+
+            {/* Content */}
+            <div className="relative z-10">
+              <div style={{ textAlign: "center", marginBottom: "32px" }}>
+                {/* Logo */}
+                <div className="flex relative -top-5 items-center justify-center">
+                  <Image
+                    src={logo}
+                    alt="Fusion X Logo"
+                    width={180}
+                    height={180}
+                    style={{
+                      objectFit: "contain",
+                    }}
+                  />
+                </div>
+
+                {/* <p style={{ fontSize: "18px", color: "#d1d5db" }}>Event Ticket</p> */}
+              </div>
+
+              {/* QR Code */}
+              <div
+                style={{ marginBottom: "10px" }}
+                className="relative -top-5"
+              >
+                <QRCodeCanvas
+                  id="myqr"
+                  value={email}
+                  size={200}
+                  bgColor={"#ffffff"}
+                  fgColor={"#000000"}
+                  includeMargin={true}
+                  marginSize={1}
+                />
+              </div>
+
+              {/* User Details */}
+              <div
                 style={{
-                  fontSize: "36px",
-                  fontWeight: "bold",
-                  color: "#fbbf24",
-                  marginBottom: "8px",
+                  textAlign: "center",
+                  gap: "8px",
+                  display: "flex",
+                  flexDirection: "column",
+                }}
+                className="relative -top-5"
+              >
+                <p style={{ fontSize: "24px", fontWeight: "semibold" }}>
+                  {name}
+                </p>
+                <p style={{ color: "#d1d5db" }}>{email}</p>
+                <p style={{ color: "#d1d5db" }}>{faculty}</p>
+              </div>
+
+              {/* Footer */}
+              <div
+                className="relative -top-5"
+                style={{
+                  marginTop: "32px",
+                  textAlign: "center",
+                  fontSize: "14px",
+                  color: "#9ca3af",
                 }}
               >
-                FUSION X 1.0
-              </h1>
-              <p style={{ fontSize: "18px", color: "#d1d5db" }}>Event Ticket</p>
-            </div>
-
-            {/* QR Code */}
-            <div style={{ marginBottom: "32px" }}>
-              <QRCodeCanvas
-                id="myqr"
-                value={email}
-                size={200}
-                bgColor={"#ffffff"}
-                fgColor={"#000000"}
-                includeMargin={true}
-                marginSize={1}
-              />
-            </div>
-
-            {/* User Details */}
-            <div
-              style={{
-                textAlign: "center",
-                gap: "8px",
-                display: "flex",
-                flexDirection: "column",
-              }}
-            >
-              <p style={{ fontSize: "24px", fontWeight: "semibold" }}>{name}</p>
-              <p style={{ color: "#d1d5db" }}>{email}</p>
-              <p style={{ color: "#d1d5db" }}>{faculty}</p>
-            </div>
-
-            {/* Footer */}
-            <div
-              style={{
-                marginTop: "32px",
-                textAlign: "center",
-                fontSize: "14px",
-                color: "#9ca3af",
-              }}
-            >
-              <p>Present this ticket at the entrance</p>
-              <p>Valid for one entry only</p>
+                <p>Present this ticket at the entrance</p>
+                <p>Valid for one entry only</p>
+              </div>
             </div>
           </div>
         </div>

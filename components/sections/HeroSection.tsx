@@ -8,6 +8,7 @@ import { useEffect, useRef } from "react";
 
 gsap.registerPlugin(ScrollTrigger);
 
+import backgroundImg from "../../assets/background.png";
 import heroImg from "../../assets/hero-image.png";
 
 const HeroSection = () => {
@@ -110,6 +111,17 @@ const HeroSection = () => {
     >
       {/* logo moved to site header */}
 
+      {/* Background pattern - left top corner */}
+      <div className="absolute -top-20 left-8 z-10 opacity-20">
+        <Image
+          src={backgroundImg}
+          alt=""
+          width={1000}
+          height={1000}
+          className="w-[800px] h-[800px] md:w-[1000px] md:h-[1000px] object-contain"
+        />
+      </div>
+
       {/* subtle overlay to act like a texture (hex pattern asset not found) */}
       <div
         aria-hidden
@@ -183,7 +195,7 @@ const HeroSection = () => {
         {/* Right column - image */}
         <div
           ref={imageRef}
-          className="flex relative mt-10 h-full items-end justify-center px- py-12 lg:py-0"
+          className="hidden md:flex relative mt-10 h-full items-end justify-center px- py-12 lg:py-0"
         >
           <div className="w-full max-w-3xl h-full flex items-end">
             <Image
@@ -196,6 +208,17 @@ const HeroSection = () => {
           </div>
         </div>
       </div>
+
+      {/* Background pattern - bottom right corner (between hero and mission) */}
+      {/* <div className="absolute bottom-8 right-8 z-10 opacity-15">
+        <Image
+          src={backgroundImg}
+          alt=""
+          width={600}
+          height={600}
+          className="w-96 h-96 md:w-[500px] md:h-[500px] object-contain"
+        />
+      </div> */}
     </section>
   );
 };

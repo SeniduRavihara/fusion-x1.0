@@ -8,24 +8,24 @@ gsap.registerPlugin(ScrollTrigger);
 
 const timelineData = [
   {
-    day: "Day 1",
-    title: "Python Basics & Fundamentals",
+    day: "DAY 01 - 11/13",
+    title: "Python Basics",
     description:
-      "Introduction to Python programming, data structures, and basic concepts essential for AI development.",
+      "THEORY: Python basics, NumPy, OpenCV, and Pandas Libraries\n\nPROJECTS: Calculating the width of coins, Calculating the height of plants",
     color: "from-purple-600 to-blue-500",
   },
   {
-    day: "Day 2",
-    title: "Neural Networks & Machine Learning",
+    day: "DAY 02 - 11/20",
+    title: "Intro to AI",
     description:
-      "Hands-on learning about neural networks, basic machine learning algorithms, and practical implementations.",
+      "THEORY: AI, ML, DL concepts, Supervised learning algorithms\n\nPROJECTS: Iris flower classification model, Simple predictive model with practical",
     color: "from-blue-600 to-cyan-500",
   },
   {
-    day: "Day 3",
-    title: "Project Building Workshop",
+    day: "DAY 03 - 11/27",
+    title: "Hands On Projects",
     description:
-      "Collaborative session where participants build two AI projects with guidance from mentors.",
+      "THEORY: Basics of Tkinter for building graphical interfaces\n\nPROJECTS: Handwritten digit recognition system, Face recognition system",
     color: "from-cyan-600 to-teal-500",
   },
 ];

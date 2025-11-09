@@ -1,7 +1,9 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
+import backgroundImg from "../../assets/background.png";
 import { BackgroundBeams } from "../ui/background-beams";
 
 const OutVisionSection = () => {
@@ -55,8 +57,33 @@ const OutVisionSection = () => {
   const words = visionText.split(" ");
 
   return (
-    <section id="vision" className="w-full py-28 bg-black min-h-screen">
-      <div className="max-w-7xl mx-auto px-6">
+    <section
+      id="vision"
+      className="w-full py-28 bg-black min-h-screen relative"
+    >
+      {/* Background pattern - top right corner */}
+      <div className="absolute top-8 right-8 z-0 opacity-10">
+        <Image
+          src={backgroundImg}
+          alt=""
+          width={400}
+          height={400}
+          className="w-64 h-64 md:w-96 md:h-96 object-contain"
+        />
+      </div>
+
+      {/* Background pattern - bottom left corner */}
+      <div className="absolute bottom-8 left-8 z-0 opacity-10">
+        <Image
+          src={backgroundImg}
+          alt=""
+          width={400}
+          height={400}
+          className="w-64 h-64 md:w-96 md:h-96 object-contain"
+        />
+      </div>
+
+      <div className="max-w-7xl mx-auto px-6 relative z-10">
         {/* Header */}
         <div className="mb-16">
           <h2 className="text-3xl md:text-5xl font-bold text-white mb-4">
@@ -122,7 +149,7 @@ const OutVisionSection = () => {
               </motion.div>
 
               {/* Visual element placeholder */}
-              <div className="flex-1 flex justify-center">
+              <div className="hidden md:flex flex-1 justify-center">
                 <div className="relative w-80 h-80 border border-purple-500/20 rounded-full flex items-center justify-center">
                   <div className="absolute inset-4 border border-purple-500/10 rounded-full animate-ping opacity-30"></div>
                   <div className="text-purple-400 text-6xl font-bold opacity-20">

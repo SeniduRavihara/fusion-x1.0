@@ -1,12 +1,39 @@
 "use client";
 
+import Image from "next/image";
+import backgroundImg from "../../assets/background.png";
 import SessionsStack from "./SessionsStack";
 import TimelineVideoSection from "./TimelineVideoSection";
 
 const TimelineSection = () => {
   return (
-    <section id="timeline" className="w-full py-28 bg-black min-h-screen">
-      <div className="max-w-7xl mx-auto px-6">
+    <section
+      id="timeline"
+      className="w-full py-28 bg-black min-h-screen relative"
+    >
+      {/* Background pattern - top left corner */}
+      <div className="absolute top-8 left-8 z-0 opacity-10">
+        <Image
+          src={backgroundImg}
+          alt=""
+          width={200}
+          height={200}
+          className="w-32 h-32 md:w-48 md:h-48 object-contain"
+        />
+      </div>
+
+      {/* Background pattern - bottom right corner */}
+      <div className="absolute bottom-8 right-8 z-0 opacity-10">
+        <Image
+          src={backgroundImg}
+          alt=""
+          width={200}
+          height={200}
+          className="w-32 h-32 md:w-48 md:h-48 object-contain"
+        />
+      </div>
+
+      <div className="max-w-7xl mx-auto px-6 relative z-10">
         {/* Header */}
         <div className="mb-16">
           <h2 className="text-3xl md:text-5xl font-bold text-white mb-4">

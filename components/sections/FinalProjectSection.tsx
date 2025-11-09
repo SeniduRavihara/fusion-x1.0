@@ -7,6 +7,7 @@ import { useEffect, useRef } from "react";
 
 gsap.registerPlugin(ScrollTrigger);
 
+import backgroundImg from "../../assets/background.png";
 import finalProjectImg from "../../assets/final-project-image.png";
 
 const FinalProjectSection = () => {
@@ -53,31 +54,6 @@ const FinalProjectSection = () => {
         }
       );
 
-      // Image animation
-      gsap.fromTo(
-        imageRef.current,
-        {
-          opacity: 0,
-          x: 50,
-          scale: 0.8,
-          rotateY: 15,
-        },
-        {
-          opacity: 1,
-          x: 0,
-          scale: 1,
-          rotateY: 0,
-          duration: 1.2,
-          delay: 0.4,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: imageRef.current,
-            start: "top 80%",
-            toggleActions: "play none none reverse",
-          },
-        }
-      );
-
       // Timeline dot animation
       const timelineDot = sectionRef.current?.querySelector(".timeline-dot");
       if (timelineDot) {
@@ -108,7 +84,29 @@ const FinalProjectSection = () => {
       id="final-project"
       className="w-full pb-20 pt-10 bg-transparent relative"
     >
-      <div className="max-w-6xl mx-auto px-6">
+      {/* Background pattern - top left corner */}
+      <div className="absolute top-8 left-8 z-0 opacity-8">
+        <Image
+          src={backgroundImg}
+          alt=""
+          width={180}
+          height={180}
+          className="w-28 h-28 md:w-40 md:h-40 object-contain"
+        />
+      </div>
+
+      {/* Background pattern - bottom right corner */}
+      <div className="absolute bottom-8 right-8 z-0 opacity-8">
+        <Image
+          src={backgroundImg}
+          alt=""
+          width={180}
+          height={180}
+          className="w-28 h-28 md:w-40 md:h-40 object-contain"
+        />
+      </div>
+
+      <div className="max-w-6xl mx-auto px-6 relative z-10">
         <div className="relative">
           {/* Large connecting border */}
           <div className="absolute left-8 top-16 bottom-0 w-0.5 bg-linear-to-b from-blue-500 to-purple-600"></div>
@@ -159,7 +157,10 @@ const FinalProjectSection = () => {
               </div>
             </div>
 
-            <div ref={imageRef} className="relative -top-[70px]">
+            <div
+              ref={imageRef}
+              className="hidden md:block relative -top-[70px]"
+            >
               <div className="relative rounded-2xl overflow-hidden">
                 <Image
                   src={finalProjectImg}
