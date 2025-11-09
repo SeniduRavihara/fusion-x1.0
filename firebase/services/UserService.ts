@@ -64,7 +64,7 @@ class UserService {
         where("email", "==", email)
       );
       const querySnapshot = await getDocs(q);
-      
+
       if (querySnapshot.empty) {
         return false;
       }
@@ -87,7 +87,7 @@ class UserService {
         where("email", "==", email)
       );
       const querySnapshot = await getDocs(q);
-      
+
       if (!querySnapshot.empty) {
         const docRef = querySnapshot.docs[0].ref;
         await updateDoc(docRef, {

@@ -93,10 +93,10 @@ export default function GenerateTicket({
     const checkAndSendEmail = async () => {
       try {
         setIsCheckingEmailStatus(true);
-        
+
         // Check if email was already sent
         const alreadySent = await UserService.isEmailSent(email);
-        
+
         if (alreadySent) {
           setEmailSent(true);
           setIsCheckingEmailStatus(false);
@@ -197,10 +197,7 @@ export default function GenerateTicket({
               </div>
 
               {/* QR Code */}
-              <div
-                style={{ marginBottom: "10px" }}
-                className="relative -top-5"
-              >
+              <div style={{ marginBottom: "10px" }} className="relative -top-5">
                 <QRCodeCanvas
                   id="myqr"
                   value={email}
@@ -286,7 +283,7 @@ export default function GenerateTicket({
       {/* Instructions */}
       <div className="mt-6 text-center bg-[#262930] p-4 rounded-lg border border-[#333842] w-full max-w-md">
         <p className="text-gray-300 text-sm">
-          {emailSent 
+          {emailSent
             ? "Your ticket has been automatically sent to your email and downloaded. You can download it again if needed. Bring this ticket to the event entrance."
             : "Your ticket is being processed. It will be automatically sent to your email and downloaded. Bring this ticket to the event entrance."}
         </p>
