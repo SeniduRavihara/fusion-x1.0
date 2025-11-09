@@ -98,6 +98,12 @@ const teamMembers: TeamMember[] = [
       "https://www.linkedin.com/in/eranga-kavisanka-ariyarathna-7249592a8",
   },
   {
+    id: 5,
+    name: "Vishishta Dilsara",
+    role: "Head of Marketing and Design Panel",
+    image: "/team/Vishishta Dilsara - Head-marketing and design panel.jpg",
+  },
+  {
     id: 2,
     name: "Maleesha Weerasooriya",
     role: "Head of Finance Team",
@@ -122,38 +128,43 @@ const teamMembers: TeamMember[] = [
     github: "https://github.com/thiranRR",
     linkedin: "https://www.linkedin.com/in/thiran-ranathungar",
   },
-  {
-    id: 5,
-    name: "Vishishta Dilsara",
-    role: "Head of Marketing and Design Panel",
-    image: "/team/Vishishta Dilsara - Head-marketing and design panel.jpg",
-  },
 ];
 
 export default function OurTeamSection() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [itemsPerView, setItemsPerView] = useState(3); // Default for SSR
   const [dots, setDots] = useState<number[]>([]); // Start empty to avoid hydration mismatch
-
-  // Calculate items per view
-  const getItemsPerView = () => {
-    if (typeof window !== "undefined") {
-      if (window.innerWidth >= 1280) return 4; // xl
-      if (window.innerWidth >= 1024) return 3; // lg
-      if (window.innerWidth >= 768) return 2; // md
-      return 1; // sm and below
-    }
-    return 3; // default
-  };
+  const [isMobile, setIsMobile] = useState(false); // Track mobile state
 
   // Update items per view and dots on mount and resize
   useEffect(() => {
     const updateItemsPerView = () => {
-      const newItemsPerView = getItemsPerView();
-      setItemsPerView(newItemsPerView);
-      // Calculate number of dots as ceil(total items / items per view)
-      const numDots = Math.ceil(teamMembers.length / newItemsPerView);
-      setDots(Array.from({ length: numDots }, (_, i) => i));
+      if (typeof window !== "undefined") {
+        const mobile = window.innerWidth < 768;
+        const wasMobile = isMobile;
+        setIsMobile(mobile);
+
+        // Reset current index when switching between mobile/desktop
+        if (wasMobile !== mobile) {
+          setCurrentIndex(0);
+        }
+
+        let newItemsPerView = 3; // default
+        if (window.innerWidth >= 1280) newItemsPerView = 4; // xl
+        else if (window.innerWidth >= 1024) newItemsPerView = 3; // lg
+        else if (window.innerWidth >= 768) newItemsPerView = 2; // md
+        else newItemsPerView = 1; // sm and below
+
+        setItemsPerView(newItemsPerView);
+
+        // Calculate number of dots based on the array we're using
+        const membersArray = mobile
+          ? [...leadershipMembers, ...teamMembers]
+          : teamMembers;
+        // Dots should equal the number of possible scroll positions
+        const numDots = Math.max(1, membersArray.length - newItemsPerView + 1);
+        setDots(Array.from({ length: numDots }, (_, i) => i));
+      }
     };
 
     updateItemsPerView(); // Initial calculation
@@ -162,9 +173,13 @@ export default function OurTeamSection() {
       window.addEventListener("resize", updateItemsPerView);
       return () => window.removeEventListener("resize", updateItemsPerView);
     }
-  }, []);
+  }, [isMobile]);
 
-  const maxIndex = Math.max(0, teamMembers.length - itemsPerView);
+  // Get the current members array based on mobile state
+  const currentMembers = isMobile
+    ? [...leadershipMembers, ...teamMembers]
+    : teamMembers;
+  const maxIndex = Math.max(0, currentMembers.length - itemsPerView);
 
   const nextSlide = () => {
     setCurrentIndex((prev) => (prev >= maxIndex ? 0 : prev + 1));
@@ -211,8 +226,8 @@ export default function OurTeamSection() {
           Meet Our Team
         </h1>
 
-        {/* Leadership Team - Triangle Layout */}
-        <div className="mb-20">
+        {/* Leadership Team - Triangle Layout - Hidden on Mobile */}
+        <div className="mb-20 hidden md:block">
           <h2 className="text-3xl md:text-4xl font-bold text-white text-center mb-12 tracking-tight">
             Leadership Team
           </h2>
@@ -407,6 +422,9 @@ export default function OurTeamSection() {
 
         {/* Carousel Container */}
         <div className="relative">
+          <h2 className="text-3xl md:text-4xl font-bold text-white text-center mb-12 tracking-tight">
+            {isMobile ? "All Team Members" : "Team Members"}
+          </h2>
           {/* Navigation Buttons */}
           <button
             onClick={prevSlide}
@@ -434,9 +452,9 @@ export default function OurTeamSection() {
                 }%)`,
               }}
             >
-              {teamMembers.map((member) => (
+              {currentMembers.map((member, index) => (
                 <div
-                  key={member.id}
+                  key={`${member.name}-${index}`}
                   className="shrink-0 basis-full sm:basis-1/2 md:basis-1/3 lg:basis-1/3 xl:basis-1/4 flex flex-col items-center group px-2 h-96"
                 >
                   {/* Card Container with Hover Effect */}
