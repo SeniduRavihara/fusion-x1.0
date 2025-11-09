@@ -147,7 +147,7 @@ const FinalProjectSection = () => {
                   <li>
                     • Must incorporate AI/ML concepts learned during the program
                   </li>
-                  <li>• Can be individual or team-based</li>
+                  <li>• Individual projects only</li>
                   <li>
                     • Should solve a real-world problem or demonstrate
                     innovation
