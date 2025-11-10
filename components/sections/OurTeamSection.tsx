@@ -102,6 +102,8 @@ const teamMembers: TeamMember[] = [
     name: "Vishishta Dilsara",
     role: "Head of Marketing and Design Panel",
     image: "/team/Vishishta Dilsara - Head-marketing and design panel.jpg",
+    github: "https://github.com/VishishtaDilsara",
+    linkedin: "https://www.linkedin.com/in/vishishta-dilsara-14059a348/",
   },
   {
     id: 2,

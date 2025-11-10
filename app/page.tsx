@@ -1,3 +1,4 @@
+import CollaborateSection from "@/components/sections/CollaborateSection";
 import FinalProjectSection from "@/components/sections/FinalProjectSection";
 import FooterSection from "@/components/sections/FooterSection";
 import HeaderSection from "@/components/sections/HeaderSection";
@@ -15,6 +16,7 @@ export default function Home() {
       <OutVisionSection />
       <TimelineSection />
       <FinalProjectSection />
+      <CollaborateSection />
       <OurTeamSection />
       <QandASection />
       <FooterSection />
