@@ -35,12 +35,12 @@ const SessionsStack = ({ direction = "vertical" }) => {
 
   useLayoutEffect(() => {
     if (!section.current) return;
-
     const ctx = gsap.context(() => {
       if (!section.current) return;
       const items = section.current.querySelectorAll(".item");
       if (!items.length) return;
 
+      // Set initial offscreen positions for all but the first item
       items.forEach((item, index) => {
         if (index !== 0) {
           gsap.set(
@@ -50,29 +50,72 @@ const SessionsStack = ({ direction = "vertical" }) => {
         }
       });
 
-      const timeline = gsap.timeline({
-        scrollTrigger: {
-          trigger: section.current,
-          pin: true,
-          start: "top top",
-          end: () => `+=${items.length * 30}%`,
-          scrub: 1,
-          invalidateOnRefresh: true,
-          markers: true,
+      // Use ScrollTrigger.matchMedia to provide different scrollTrigger
+      // settings for mobile vs desktop
+      ScrollTrigger.matchMedia({
+        // Mobile: give more scroll space (end) to avoid overlap and allow
+        // taller cards to animate without clipping
+        "(max-width: 767px)": function () {
+          const timeline = gsap.timeline({
+            scrollTrigger: {
+              trigger: section.current,
+              pin: true,
+              start: "top top",
+              // bigger end distance for mobile
+              end: () => `+=${items.length * 120}%`,
+              scrub: 1,
+              invalidateOnRefresh: true,
+              markers: false,
+            },
+            defaults: { ease: "none" },
+          });
+
+          items.forEach((item, index) => {
+            timeline.to(item, { scale: 0.85 });
+            if (items[index + 1]) {
+              timeline.to(
+                items[index + 1],
+                direction === "horizontal" ? { xPercent: 0 } : { yPercent: 0 },
+                "<"
+              );
+            }
+          });
+
+          return () => {
+            timeline.kill();
+          };
         },
-        defaults: { ease: "none" },
-      });
 
-      items.forEach((item, index) => {
-        timeline.to(item, { scale: 0.85 });
+        // Desktop/tablet: keep previous (shorter) end distance
+        "(min-width: 768px)": function () {
+          const timeline = gsap.timeline({
+            scrollTrigger: {
+              trigger: section.current,
+              pin: true,
+              start: "top top",
+              end: () => `+=${items.length * 30}%`,
+              scrub: 1,
+              invalidateOnRefresh: true,
+              markers: false,
+            },
+            defaults: { ease: "none" },
+          });
 
-        if (items[index + 1]) {
-          timeline.to(
-            items[index + 1],
-            direction === "horizontal" ? { xPercent: 0 } : { yPercent: 0 },
-            "<"
-          );
-        }
+          items.forEach((item, index) => {
+            timeline.to(item, { scale: 0.85 });
+            if (items[index + 1]) {
+              timeline.to(
+                items[index + 1],
+                direction === "horizontal" ? { xPercent: 0 } : { yPercent: 0 },
+                "<"
+              );
+            }
+          });
+
+          return () => {
+            timeline.kill();
+          };
+        },
       });
     }, section);
 
