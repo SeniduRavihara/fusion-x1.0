@@ -260,9 +260,14 @@ export default function AdminPage() {
     <main className="min-h-screen p-4 sm:p-6 lg:p-8 bg-[#05060a] text-white">
       <div className="max-w-7xl mx-auto">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6 gap-4">
-          <h1 className="text-2xl sm:text-3xl font-bold">
-            Admin — Registrations
-          </h1>
+          <div>
+            <h1 className="text-2xl sm:text-3xl font-bold">
+              Admin — Registrations
+            </h1>
+            <p className="text-sm sm:text-base text-gray-400 mt-1">
+              Total Registered Students: {items.length}
+            </p>
+          </div>
           <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-3">
             <div className="relative">
               <button
